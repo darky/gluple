@@ -7,3 +7,5 @@ export const tupleSize = (arr) => arr.length;
 export const element = (index, arr) => arr[index - 1];
 
 export const tupleToList = (arr) => List.fromArray(arr);
+
+export const listToTuple = (list) => list.toArray();

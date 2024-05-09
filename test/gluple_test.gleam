@@ -51,3 +51,8 @@ pub fn tuple_to_list_on_non_tuple_test() {
   gluple.tuple_to_list(123)
   |> should.equal(Error("Non tuple passed: 123"))
 }
+
+pub fn list_to_tuple_test() {
+  gluple.list_to_tuple([1, 2, 3])
+  |> should.equal(#(1, 2, 3))
+}

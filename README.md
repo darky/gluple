@@ -20,6 +20,8 @@ pub fn main() {
   gluple.tuple_element(#("test"), 0) // Ok("test")
 
   gluple.tuple_to_list(#(1, 2, 3)) // Ok([1, 2, 3])
+
+  gluple.list_to_tuple([1, 2, 3]) // #(1, 2, 3)
 }
 ```
 

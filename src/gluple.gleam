@@ -43,6 +43,10 @@ pub fn is_tuple(maybe_tuple: t) -> Bool
 @external(javascript, "./gluple_ffi.mjs", "tupleToList")
 fn do_tuple_to_list(maybe_tuple: t) -> List(Dynamic)
 
+@external(erlang, "erlang", "list_to_tuple")
+@external(javascript, "./gluple_ffi.mjs", "listToTuple")
+pub fn list_to_tuple(list: List(x)) -> t
+
 @external(erlang, "erlang", "tuple_size")
 @external(javascript, "./gluple_ffi.mjs", "tupleSize")
 fn do_tuple_size(tuple: t) -> Int
