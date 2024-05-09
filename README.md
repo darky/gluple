@@ -18,6 +18,8 @@ pub fn main() {
   gluple.tuple_size(#(1, True, "test")) // Ok(3)
 
   gluple.tuple_element(#("test"), 0) // Ok("test")
+
+  gluple.tuple_to_list(#(1, 2, 3)) // Ok([1, 2, 3])
 }
 ```
 
