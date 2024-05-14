@@ -1,4 +1,4 @@
-import gleam/dynamic
+import gleam/dynamic.{DecodeError}
 import gleeunit
 import gleeunit/should
 import gluple
@@ -29,7 +29,7 @@ pub fn tuple_size_zero_test() {
 
 pub fn tuple_size_on_non_tuple_test() {
   gluple.tuple_size(123)
-  |> should.equal(Error("Non tuple passed: 123"))
+  |> should.equal(Error([DecodeError("Tuple", "123", [])]))
 }
 
 pub fn tuple_element_test() {
@@ -39,7 +39,7 @@ pub fn tuple_element_test() {
 
 pub fn tuple_not_exists_element_test() {
   gluple.tuple_element(#("test"), 1)
-  |> should.equal(Error("Tuple index out of range; tuple size: 1, index: 1"))
+  |> should.equal(Error([DecodeError("Tuple size 1", "Desired index 1", [])]))
 }
 
 pub fn tuple_to_list_test() {
@@ -49,7 +49,7 @@ pub fn tuple_to_list_test() {
 
 pub fn tuple_to_list_on_non_tuple_test() {
   gluple.tuple_to_list(123)
-  |> should.equal(Error("Non tuple passed: 123"))
+  |> should.equal(Error([DecodeError("Tuple", "123", [])]))
 }
 
 pub fn list_to_tuple_test() {
