@@ -1,5 +1,5 @@
 name = "gluple"
-version = "1.0.0"
+version = "1.1.0"
 description = "Tuple methods for Gleam"
 licences = ["MIT"]
 repository = { type = "github", user = "darky", repo = "gluple" }
