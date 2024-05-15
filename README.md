@@ -17,11 +17,11 @@ pub fn main() {
 
   gluple.tuple_size(#(1, True, "test")) // Ok(3)
 
-  gluple.tuple_element(#("test"), 0) // Ok("test")
+  gluple.tuple_element(#("test"), 0) // Ok(dynamic.from("test"))
 
-  gluple.tuple_to_list(#(1, 2, 3)) // Ok([1, 2, 3])
+  gluple.tuple_to_list(#(1, 2, 3)) // Ok([dynamic.from(1), dynamic.from(2), dynamic.from(3)])
 
-  gluple.list_to_tuple([1, 2, 3]) // #(1, 2, 3)
+  gluple.list_to_tuple([1, 2, 3]) // dynamic.from(#(1, 2, 3))
 }
 ```
 
