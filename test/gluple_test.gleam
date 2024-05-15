@@ -34,7 +34,7 @@ pub fn tuple_size_on_non_tuple_test() {
 
 pub fn tuple_element_test() {
   gluple.tuple_element(#("test"), 0)
-  |> should.equal(Ok("test"))
+  |> should.equal(Ok(dynamic.from("test")))
 }
 
 pub fn tuple_not_exists_element_test() {
@@ -54,5 +54,5 @@ pub fn tuple_to_list_on_non_tuple_test() {
 
 pub fn list_to_tuple_test() {
   gluple.list_to_tuple([1, 2, 3])
-  |> should.equal(#(1, 2, 3))
+  |> should.equal(dynamic.from(#(1, 2, 3)))
 }

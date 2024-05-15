@@ -16,7 +16,7 @@ pub fn tuple_to_list(tuple: t) -> Result(List(Dynamic), List(DecodeError)) {
   }
 }
 
-pub fn tuple_element(tuple: t, index: Int) -> Result(el, List(DecodeError)) {
+pub fn tuple_element(tuple: t, index: Int) -> Result(Dynamic, List(DecodeError)) {
   case is_tuple(tuple) {
     True -> {
       let tuple_size = do_tuple_size(tuple)
@@ -46,7 +46,7 @@ fn do_tuple_to_list(maybe_tuple: t) -> List(Dynamic)
 
 @external(erlang, "erlang", "list_to_tuple")
 @external(javascript, "./gluple_ffi.mjs", "listToTuple")
-pub fn list_to_tuple(list: List(x)) -> t
+pub fn list_to_tuple(list: List(x)) -> Dynamic
 
 @external(erlang, "erlang", "tuple_size")
 @external(javascript, "./gluple_ffi.mjs", "tupleSize")
