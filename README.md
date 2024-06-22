@@ -22,6 +22,10 @@ pub fn main() {
   gluple.tuple_to_list(#(1, 2, 3)) // Ok([dynamic.from(1), dynamic.from(2), dynamic.from(3)])
 
   gluple.list_to_tuple([1, 2, 3]) // dynamic.from(#(1, 2, 3))
+
+  gluple.append2(#(1, True), "test") // #(1, True, "test")
+
+  gluple.replace_last2(#(1, True), "test") // #(1, "test")
 }
 ```
 
