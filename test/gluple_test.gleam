@@ -56,3 +56,93 @@ pub fn list_to_tuple_test() {
   gluple.list_to_tuple([1, 2, 3])
   |> should.equal(dynamic.from(#(1, 2, 3)))
 }
+
+pub fn append1_test() {
+  gluple.append1(#(1), "test")
+  |> should.equal(#(1, "test"))
+}
+
+pub fn append2_test() {
+  gluple.append2(#(1, True), "test")
+  |> should.equal(#(1, True, "test"))
+}
+
+pub fn append3_test() {
+  gluple.append3(#(1, True, 1.1), "test")
+  |> should.equal(#(1, True, 1.1, "test"))
+}
+
+pub fn append4_test() {
+  gluple.append4(#(1, True, 1.1, Nil), "test")
+  |> should.equal(#(1, True, 1.1, Nil, "test"))
+}
+
+pub fn append5_test() {
+  gluple.append5(#(1, True, 1.1, Nil, 0), "test")
+  |> should.equal(#(1, True, 1.1, Nil, 0, "test"))
+}
+
+pub fn append6_test() {
+  gluple.append6(#(1, True, 1.1, Nil, 0, False), "test")
+  |> should.equal(#(1, True, 1.1, Nil, 0, False, "test"))
+}
+
+pub fn append7_test() {
+  gluple.append7(#(1, True, 1.1, Nil, 0, False, 2.2), "test")
+  |> should.equal(#(1, True, 1.1, Nil, 0, False, 2.2, "test"))
+}
+
+pub fn append8_test() {
+  gluple.append8(#(1, True, 1.1, Nil, 0, False, 2.2, Nil), "test")
+  |> should.equal(#(1, True, 1.1, Nil, 0, False, 2.2, Nil, "test"))
+}
+
+pub fn append9_test() {
+  gluple.append9(#(1, True, 1.1, Nil, 0, False, 2.2, Nil, 3), "test")
+  |> should.equal(#(1, True, 1.1, Nil, 0, False, 2.2, Nil, 3, "test"))
+}
+
+pub fn replace_last1_test() {
+  gluple.replace_last1(#(1), "test")
+  |> should.equal(#("test"))
+}
+
+pub fn replace_last2_test() {
+  gluple.replace_last2(#(1, Nil), "test")
+  |> should.equal(#(1, "test"))
+}
+
+pub fn replace_last3_test() {
+  gluple.replace_last3(#(1, True, Nil), "test")
+  |> should.equal(#(1, True, "test"))
+}
+
+pub fn replace_last4_test() {
+  gluple.replace_last4(#(1, True, 1.1, Nil), "test")
+  |> should.equal(#(1, True, 1.1, "test"))
+}
+
+pub fn replace_last5_test() {
+  gluple.replace_last5(#(1, True, 1.1, 2, Nil), "test")
+  |> should.equal(#(1, True, 1.1, 2, "test"))
+}
+
+pub fn replace_last6_test() {
+  gluple.replace_last6(#(1, True, 1.1, 2, False, Nil), "test")
+  |> should.equal(#(1, True, 1.1, 2, False, "test"))
+}
+
+pub fn replace_last7_test() {
+  gluple.replace_last7(#(1, True, 1.1, 2, False, 2.2, Nil), "test")
+  |> should.equal(#(1, True, 1.1, 2, False, 2.2, "test"))
+}
+
+pub fn replace_last8_test() {
+  gluple.replace_last8(#(1, True, 1.1, 2, False, 2.2, "str", Nil), "test")
+  |> should.equal(#(1, True, 1.1, 2, False, 2.2, "str", "test"))
+}
+
+pub fn replace_last9_test() {
+  gluple.replace_last9(#(1, True, 1.1, 2, False, 2.2, "str", 3, Nil), "test")
+  |> should.equal(#(1, True, 1.1, 2, False, 2.2, "str", 3, "test"))
+}
