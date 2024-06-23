@@ -1,148 +1,267 @@
 import gleam/dynamic.{DecodeError}
 import gleeunit
 import gleeunit/should
-import gluple
+import gluple/addition as ga
+import gluple/reflect as gr
+import gluple/transform as gt
 
 pub fn main() {
   gleeunit.main()
 }
 
 pub fn is_tuple_true_test() {
-  gluple.is_tuple(#())
+  gr.is_tuple(#())
   |> should.equal(True)
 }
 
 pub fn is_tuple_false_test() {
-  gluple.is_tuple(123)
+  gr.is_tuple(123)
   |> should.equal(False)
 }
 
 pub fn tuple_size_non_zero_test() {
-  gluple.tuple_size(#(1, True, "test"))
+  gr.tuple_size(#(1, True, "test"))
   |> should.equal(Ok(3))
 }
 
 pub fn tuple_size_zero_test() {
-  gluple.tuple_size(#())
+  gr.tuple_size(#())
   |> should.equal(Ok(0))
 }
 
 pub fn tuple_size_on_non_tuple_test() {
-  gluple.tuple_size(123)
+  gr.tuple_size(123)
   |> should.equal(Error([DecodeError("Tuple", "123", [])]))
 }
 
 pub fn tuple_element_test() {
-  gluple.tuple_element(#("test"), 0)
+  gr.tuple_element(#("test"), 0)
   |> should.equal(Ok(dynamic.from("test")))
 }
 
 pub fn tuple_not_exists_element_test() {
-  gluple.tuple_element(#("test"), 1)
+  gr.tuple_element(#("test"), 1)
   |> should.equal(Error([DecodeError("Tuple size 1", "Desired index 1", [])]))
 }
 
 pub fn tuple_to_list_test() {
-  gluple.tuple_to_list(#(1, 2, 3))
+  gr.tuple_to_list(#(1, 2, 3))
   |> should.equal(Ok([dynamic.from(1), dynamic.from(2), dynamic.from(3)]))
 }
 
 pub fn tuple_to_list_on_non_tuple_test() {
-  gluple.tuple_to_list(123)
+  gr.tuple_to_list(123)
   |> should.equal(Error([DecodeError("Tuple", "123", [])]))
 }
 
 pub fn list_to_tuple_test() {
-  gluple.list_to_tuple([1, 2, 3])
+  gr.list_to_tuple([1, 2, 3])
   |> should.equal(dynamic.from(#(1, 2, 3)))
 }
 
 pub fn append1_test() {
-  gluple.append1(#(1), "test")
+  ga.append1(#(1), "test")
   |> should.equal(#(1, "test"))
 }
 
 pub fn append2_test() {
-  gluple.append2(#(1, True), "test")
+  ga.append2(#(1, True), "test")
   |> should.equal(#(1, True, "test"))
 }
 
 pub fn append3_test() {
-  gluple.append3(#(1, True, 1.1), "test")
+  ga.append3(#(1, True, 1.1), "test")
   |> should.equal(#(1, True, 1.1, "test"))
 }
 
 pub fn append4_test() {
-  gluple.append4(#(1, True, 1.1, Nil), "test")
+  ga.append4(#(1, True, 1.1, Nil), "test")
   |> should.equal(#(1, True, 1.1, Nil, "test"))
 }
 
 pub fn append5_test() {
-  gluple.append5(#(1, True, 1.1, Nil, 0), "test")
+  ga.append5(#(1, True, 1.1, Nil, 0), "test")
   |> should.equal(#(1, True, 1.1, Nil, 0, "test"))
 }
 
 pub fn append6_test() {
-  gluple.append6(#(1, True, 1.1, Nil, 0, False), "test")
+  ga.append6(#(1, True, 1.1, Nil, 0, False), "test")
   |> should.equal(#(1, True, 1.1, Nil, 0, False, "test"))
 }
 
 pub fn append7_test() {
-  gluple.append7(#(1, True, 1.1, Nil, 0, False, 2.2), "test")
+  ga.append7(#(1, True, 1.1, Nil, 0, False, 2.2), "test")
   |> should.equal(#(1, True, 1.1, Nil, 0, False, 2.2, "test"))
 }
 
 pub fn append8_test() {
-  gluple.append8(#(1, True, 1.1, Nil, 0, False, 2.2, Nil), "test")
+  ga.append8(#(1, True, 1.1, Nil, 0, False, 2.2, Nil), "test")
   |> should.equal(#(1, True, 1.1, Nil, 0, False, 2.2, Nil, "test"))
 }
 
 pub fn append9_test() {
-  gluple.append9(#(1, True, 1.1, Nil, 0, False, 2.2, Nil, 3), "test")
+  ga.append9(#(1, True, 1.1, Nil, 0, False, 2.2, Nil, 3), "test")
+  |> should.equal(#(1, True, 1.1, Nil, 0, False, 2.2, Nil, 3, "test"))
+}
+
+pub fn with_append1_test() {
+  ga.with_append1(#(1), fn(n) {
+    n |> should.equal(1)
+    "test"
+  })
+  |> should.equal(#(1, "test"))
+}
+
+pub fn with_append2_test() {
+  ga.with_append2(#(1, True), fn(n, b) {
+    n |> should.equal(1)
+    b |> should.equal(True)
+    "test"
+  })
+  |> should.equal(#(1, True, "test"))
+}
+
+pub fn with_append3_test() {
+  ga.with_append3(#(1, True, 1.1), fn(n, b, f) {
+    n |> should.equal(1)
+    b |> should.equal(True)
+    f |> should.equal(1.1)
+    "test"
+  })
+  |> should.equal(#(1, True, 1.1, "test"))
+}
+
+pub fn with_append4_test() {
+  ga.with_append4(#(1, True, 1.1, Nil), fn(n, b, f, nl) {
+    n |> should.equal(1)
+    b |> should.equal(True)
+    f |> should.equal(1.1)
+    nl |> should.equal(Nil)
+    "test"
+  })
+  |> should.equal(#(1, True, 1.1, Nil, "test"))
+}
+
+pub fn with_append5_test() {
+  ga.with_append5(#(1, True, 1.1, Nil, 0), fn(n, b, f, nl, n2) {
+    n |> should.equal(1)
+    b |> should.equal(True)
+    f |> should.equal(1.1)
+    nl |> should.equal(Nil)
+    n2 |> should.equal(0)
+    "test"
+  })
+  |> should.equal(#(1, True, 1.1, Nil, 0, "test"))
+}
+
+pub fn with_append6_test() {
+  ga.with_append6(#(1, True, 1.1, Nil, 0, False), fn(n, b, f, nl, n2, b2) {
+    n |> should.equal(1)
+    b |> should.equal(True)
+    f |> should.equal(1.1)
+    nl |> should.equal(Nil)
+    n2 |> should.equal(0)
+    b2 |> should.equal(False)
+    "test"
+  })
+  |> should.equal(#(1, True, 1.1, Nil, 0, False, "test"))
+}
+
+pub fn with_append7_test() {
+  ga.with_append7(
+    #(1, True, 1.1, Nil, 0, False, 2.2),
+    fn(n, b, f, nl, n2, b2, f2) {
+      n |> should.equal(1)
+      b |> should.equal(True)
+      f |> should.equal(1.1)
+      nl |> should.equal(Nil)
+      n2 |> should.equal(0)
+      b2 |> should.equal(False)
+      f2 |> should.equal(2.2)
+      "test"
+    },
+  )
+  |> should.equal(#(1, True, 1.1, Nil, 0, False, 2.2, "test"))
+}
+
+pub fn with_append8_test() {
+  ga.with_append8(
+    #(1, True, 1.1, Nil, 0, False, 2.2, Nil),
+    fn(n, b, f, nl, n2, b2, f2, nl2) {
+      n |> should.equal(1)
+      b |> should.equal(True)
+      f |> should.equal(1.1)
+      nl |> should.equal(Nil)
+      n2 |> should.equal(0)
+      b2 |> should.equal(False)
+      f2 |> should.equal(2.2)
+      nl2 |> should.equal(Nil)
+      "test"
+    },
+  )
+  |> should.equal(#(1, True, 1.1, Nil, 0, False, 2.2, Nil, "test"))
+}
+
+pub fn with_append9_test() {
+  ga.with_append9(
+    #(1, True, 1.1, Nil, 0, False, 2.2, Nil, 3),
+    fn(n, b, f, nl, n2, b2, f2, nl2, n3) {
+      n |> should.equal(1)
+      b |> should.equal(True)
+      f |> should.equal(1.1)
+      nl |> should.equal(Nil)
+      n2 |> should.equal(0)
+      b2 |> should.equal(False)
+      f2 |> should.equal(2.2)
+      nl2 |> should.equal(Nil)
+      n3 |> should.equal(3)
+      "test"
+    },
+  )
   |> should.equal(#(1, True, 1.1, Nil, 0, False, 2.2, Nil, 3, "test"))
 }
 
 pub fn replace_last1_test() {
-  gluple.replace_last1(#(1), "test")
+  gt.replace_last1(#(1), "test")
   |> should.equal(#("test"))
 }
 
 pub fn replace_last2_test() {
-  gluple.replace_last2(#(1, Nil), "test")
+  gt.replace_last2(#(1, Nil), "test")
   |> should.equal(#(1, "test"))
 }
 
 pub fn replace_last3_test() {
-  gluple.replace_last3(#(1, True, Nil), "test")
+  gt.replace_last3(#(1, True, Nil), "test")
   |> should.equal(#(1, True, "test"))
 }
 
 pub fn replace_last4_test() {
-  gluple.replace_last4(#(1, True, 1.1, Nil), "test")
+  gt.replace_last4(#(1, True, 1.1, Nil), "test")
   |> should.equal(#(1, True, 1.1, "test"))
 }
 
 pub fn replace_last5_test() {
-  gluple.replace_last5(#(1, True, 1.1, 2, Nil), "test")
+  gt.replace_last5(#(1, True, 1.1, 2, Nil), "test")
   |> should.equal(#(1, True, 1.1, 2, "test"))
 }
 
 pub fn replace_last6_test() {
-  gluple.replace_last6(#(1, True, 1.1, 2, False, Nil), "test")
+  gt.replace_last6(#(1, True, 1.1, 2, False, Nil), "test")
   |> should.equal(#(1, True, 1.1, 2, False, "test"))
 }
 
 pub fn replace_last7_test() {
-  gluple.replace_last7(#(1, True, 1.1, 2, False, 2.2, Nil), "test")
+  gt.replace_last7(#(1, True, 1.1, 2, False, 2.2, Nil), "test")
   |> should.equal(#(1, True, 1.1, 2, False, 2.2, "test"))
 }
 
 pub fn replace_last8_test() {
-  gluple.replace_last8(#(1, True, 1.1, 2, False, 2.2, "str", Nil), "test")
+  gt.replace_last8(#(1, True, 1.1, 2, False, 2.2, "str", Nil), "test")
   |> should.equal(#(1, True, 1.1, 2, False, 2.2, "str", "test"))
 }
 
 pub fn replace_last9_test() {
-  gluple.replace_last9(#(1, True, 1.1, 2, False, 2.2, "str", 3, Nil), "test")
+  gt.replace_last9(#(1, True, 1.1, 2, False, 2.2, "str", 3, Nil), "test")
   |> should.equal(#(1, True, 1.1, 2, False, 2.2, "str", 3, "test"))
 }
