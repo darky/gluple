@@ -10,22 +10,29 @@ gleam add gluple
 ```
 
 ```gleam
-import gluple
+import gluple/reflect as gr
+import gluple/addition as ga
+import gluple/transform as gt
 
 pub fn main() {
-  gluple.is_tuple(#(1, 2, 3)) // True
+  gr.is_tuple(#(1, 2, 3)) // True
 
-  gluple.tuple_size(#(1, True, "test")) // Ok(3)
+  gr.tuple_size(#(1, True, "test")) // Ok(3)
 
-  gluple.tuple_element(#("test"), 0) // Ok(dynamic.from("test"))
+  gr.tuple_element(#("test"), 0) // Ok(dynamic.from("test"))
 
-  gluple.tuple_to_list(#(1, 2, 3)) // Ok([dynamic.from(1), dynamic.from(2), dynamic.from(3)])
+  gr.tuple_to_list(#(1, 2, 3)) // Ok([dynamic.from(1), dynamic.from(2), dynamic.from(3)])
 
-  gluple.list_to_tuple([1, 2, 3]) // dynamic.from(#(1, 2, 3))
+  gr.list_to_tuple([1, 2, 3]) // dynamic.from(#(1, 2, 3))
 
-  gluple.append2(#(1, True), "test") // #(1, True, "test")
+  ga.append2(#(1, True), "test") // #(1, True, "test")
 
-  gluple.replace_last2(#(1, True), "test") // #(1, "test")
+  {
+    use _n, _b, <- ga.with_append2(#(1, True))
+    "test"
+  } // #(1, True, "test")
+
+  gt.replace_last2(#(1, True), "test") // #(1, "test")
 }
 ```
 
