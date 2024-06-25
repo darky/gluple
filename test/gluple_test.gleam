@@ -265,3 +265,120 @@ pub fn replace_last9_test() {
   gt.replace_last9(#(1, True, 1.1, 2, False, 2.2, "str", 3, Nil), "test")
   |> should.equal(#(1, True, 1.1, 2, False, 2.2, "str", 3, "test"))
 }
+
+pub fn with_replace_last1_test() {
+  gt.with_replace_last1(#(1), fn(n) {
+    n |> should.equal(1)
+    "test"
+  })
+  |> should.equal(#("test"))
+}
+
+pub fn with_replace_last2_test() {
+  gt.with_replace_last2(#(1, True), fn(n, b) {
+    n |> should.equal(1)
+    b |> should.equal(True)
+    "test"
+  })
+  |> should.equal(#(1, "test"))
+}
+
+pub fn with_replace_last3_test() {
+  gt.with_replace_last3(#(1, True, 1.1), fn(n, b, f) {
+    n |> should.equal(1)
+    b |> should.equal(True)
+    f |> should.equal(1.1)
+    "test"
+  })
+  |> should.equal(#(1, True, "test"))
+}
+
+pub fn with_replace_last4_test() {
+  gt.with_replace_last4(#(1, True, 1.1, 2), fn(n, b, f, n2) {
+    n |> should.equal(1)
+    b |> should.equal(True)
+    f |> should.equal(1.1)
+    n2 |> should.equal(2)
+    "test"
+  })
+  |> should.equal(#(1, True, 1.1, "test"))
+}
+
+pub fn with_replace_last5_test() {
+  gt.with_replace_last5(#(1, True, 1.1, 2, False), fn(n, b, f, n2, b2) {
+    n |> should.equal(1)
+    b |> should.equal(True)
+    f |> should.equal(1.1)
+    n2 |> should.equal(2)
+    b2 |> should.equal(False)
+    "test"
+  })
+  |> should.equal(#(1, True, 1.1, 2, "test"))
+}
+
+pub fn with_replace_last6_test() {
+  gt.with_replace_last6(#(1, True, 1.1, 2, False, 2.2), fn(n, b, f, n2, b2, f2) {
+    n |> should.equal(1)
+    b |> should.equal(True)
+    f |> should.equal(1.1)
+    n2 |> should.equal(2)
+    b2 |> should.equal(False)
+    f2 |> should.equal(2.2)
+    "test"
+  })
+  |> should.equal(#(1, True, 1.1, 2, False, "test"))
+}
+
+pub fn with_replace_last7_test() {
+  gt.with_replace_last7(
+    #(1, True, 1.1, 2, False, 2.2, "str"),
+    fn(n, b, f, n2, b2, f2, s) {
+      n |> should.equal(1)
+      b |> should.equal(True)
+      f |> should.equal(1.1)
+      n2 |> should.equal(2)
+      b2 |> should.equal(False)
+      f2 |> should.equal(2.2)
+      s |> should.equal("str")
+      "test"
+    },
+  )
+  |> should.equal(#(1, True, 1.1, 2, False, 2.2, "test"))
+}
+
+pub fn with_replace_last8_test() {
+  gt.with_replace_last8(
+    #(1, True, 1.1, 2, False, 2.2, "str", Nil),
+    fn(n, b, f, n2, b2, f2, s, nl) {
+      n |> should.equal(1)
+      b |> should.equal(True)
+      f |> should.equal(1.1)
+      n2 |> should.equal(2)
+      b2 |> should.equal(False)
+      f2 |> should.equal(2.2)
+      s |> should.equal("str")
+      nl |> should.equal(Nil)
+      "test"
+    },
+  )
+  |> should.equal(#(1, True, 1.1, 2, False, 2.2, "str", "test"))
+}
+
+pub fn with_replace_last9_test() {
+  gt.with_replace_last9(
+    #(1, True, 1.1, 2, False, 2.2, "str", Nil, 3),
+    fn(n, b, f, n2, b2, f2, s, nl, n3) {
+      n |> should.equal(1)
+      b |> should.equal(True)
+      f |> should.equal(1.1)
+      n2 |> should.equal(2)
+      b2 |> should.equal(False)
+      f2 |> should.equal(2.2)
+      s |> should.equal("str")
+      nl |> should.equal(Nil)
+      n3 |> should.equal(3)
+      "test"
+    },
+  )
+  |> should.equal(#(1, True, 1.1, 2, False, 2.2, "str", Nil, "test"))
+}
