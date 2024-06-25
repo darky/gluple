@@ -13,6 +13,7 @@ gleam add gluple
 import gluple/reflect as gr
 import gluple/addition as ga
 import gluple/transform as gt
+import gluple/removal as grm
 
 pub fn main() {
   gr.is_tuple(#(1, 2, 3)) // True
@@ -38,6 +39,8 @@ pub fn main() {
     use _n, _b, <- ga.with_replace2(#(1, True))
     "test"
   } // #(1, "test")
+
+  #(1, True) |> grm.remove_first2 // #(True)
 }
 ```
 

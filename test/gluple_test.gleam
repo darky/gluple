@@ -3,6 +3,7 @@ import gleeunit
 import gleeunit/should
 import gluple/addition as ga
 import gluple/reflect as gr
+import gluple/removal as grm
 import gluple/transform as gt
 
 pub fn main() {
@@ -381,4 +382,50 @@ pub fn with_replace_last9_test() {
     },
   )
   |> should.equal(#(1, True, 1.1, 2, False, 2.2, "str", Nil, "test"))
+}
+
+pub fn remove_first1_test() {
+  #(1) |> grm.remove_first1 |> should.equal(#())
+}
+
+pub fn remove_first2_test() {
+  #(1, True) |> grm.remove_first2 |> should.equal(#(True))
+}
+
+pub fn remove_first3_test() {
+  #(1, True, 1.1) |> grm.remove_first3 |> should.equal(#(True, 1.1))
+}
+
+pub fn remove_first4_test() {
+  #(1, True, 1.1, 2) |> grm.remove_first4 |> should.equal(#(True, 1.1, 2))
+}
+
+pub fn remove_first5_test() {
+  #(1, True, 1.1, 2, False)
+  |> grm.remove_first5
+  |> should.equal(#(True, 1.1, 2, False))
+}
+
+pub fn remove_first6_test() {
+  #(1, True, 1.1, 2, False, 2.2)
+  |> grm.remove_first6
+  |> should.equal(#(True, 1.1, 2, False, 2.2))
+}
+
+pub fn remove_first7_test() {
+  #(1, True, 1.1, 2, False, 2.2, 3)
+  |> grm.remove_first7
+  |> should.equal(#(True, 1.1, 2, False, 2.2, 3))
+}
+
+pub fn remove_first8_test() {
+  #(1, True, 1.1, 2, False, 2.2, 3, "test")
+  |> grm.remove_first8
+  |> should.equal(#(True, 1.1, 2, False, 2.2, 3, "test"))
+}
+
+pub fn remove_first9_test() {
+  #(1, True, 1.1, 2, False, 2.2, 3, "test", Nil)
+  |> grm.remove_first9
+  |> should.equal(#(True, 1.1, 2, False, 2.2, 3, "test", Nil))
 }
