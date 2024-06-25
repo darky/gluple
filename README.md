@@ -33,6 +33,11 @@ pub fn main() {
   } // #(1, True, "test")
 
   gt.replace_last2(#(1, True), "test") // #(1, "test")
+
+  {
+    use _n, _b, <- ga.with_replace2(#(1, True))
+    "test"
+  } // #(1, "test")
 }
 ```
 
