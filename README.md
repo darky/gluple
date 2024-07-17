@@ -2,6 +2,8 @@
 
 [![Package Version](https://img.shields.io/hexpm/v/gluple)](https://hex.pm/packages/gluple)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/gluple/)
+![Erlang-compatible](https://img.shields.io/badge/target-erlang-a2003e)
+![JavaScript-compatible](https://img.shields.io/badge/target-javascript-f1e05a)
 
 Tuple methods for Gleam
 
