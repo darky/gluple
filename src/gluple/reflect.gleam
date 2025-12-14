@@ -1,4 +1,4 @@
-import gleam/dynamic.{type DecodeError, type Dynamic, DecodeError}
+import gleam/dynamic/decode.{type DecodeError, type Dynamic, DecodeError}
 import gleam/int
 import gleam/string
 

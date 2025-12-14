@@ -1,4 +1,5 @@
-import gleam/dynamic.{DecodeError}
+import gleam/dynamic
+import gleam/dynamic/decode.{DecodeError}
 import gleeunit
 import gleeunit/should
 import gluple/addition as ga
@@ -37,7 +38,7 @@ pub fn tuple_size_on_non_tuple_test() {
 
 pub fn tuple_element_test() {
   gr.tuple_element(#("test"), 0)
-  |> should.equal(Ok(dynamic.from("test")))
+  |> should.equal(Ok(dynamic.string("test")))
 }
 
 pub fn tuple_not_exists_element_test() {
@@ -47,7 +48,7 @@ pub fn tuple_not_exists_element_test() {
 
 pub fn tuple_to_list_test() {
   gr.tuple_to_list(#(1, 2, 3))
-  |> should.equal(Ok([dynamic.from(1), dynamic.from(2), dynamic.from(3)]))
+  |> should.equal(Ok([dynamic.int(1), dynamic.int(2), dynamic.int(3)]))
 }
 
 pub fn tuple_to_list_on_non_tuple_test() {
@@ -57,7 +58,9 @@ pub fn tuple_to_list_on_non_tuple_test() {
 
 pub fn list_to_tuple_test() {
   gr.list_to_tuple([1, 2, 3])
-  |> should.equal(dynamic.from(#(1, 2, 3)))
+  |> should.equal(
+    dynamic.array([dynamic.int(1), dynamic.int(2), dynamic.int(3)]),
+  )
 }
 
 pub fn append1_test() {
